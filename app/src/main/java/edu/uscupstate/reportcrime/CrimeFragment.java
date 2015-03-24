@@ -2,6 +2,7 @@ package edu.uscupstate.reportcrime;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -13,8 +14,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.util.UUID;
+
 /**
- * Created by Michael on 2/10/2015.
+ * Created by Christophe.
  */
 public class CrimeFragment extends Fragment
 {
@@ -23,37 +26,31 @@ public class CrimeFragment extends Fragment
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
 
+    // tag to receive extras
+    public static final String EXTRA_CRIME_ID = "criminalreport.CRIME_ID";
+    public static final String DIALOG_DATE = "date";
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-        //You don't inflate the fragment's view in the onCreate method
         super.onCreate(savedInstanceState);
-        mCrime = new Crime();
+//        mCrime = new Crime();
+        // Retrieving the extra and fetching the Crime
+//        UUID crimeId = (UUID)getActivity().getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+        UUID crimeId = (UUID)getArguments().getSerializable(EXTRA_CRIME_ID);
+        mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
     }
-
-    //You configure the fragment instance in Fragment.onCreate(),
-    //but you create and configure the fragment's view in another
-    //fragment lifecycle method called onCreateView.  This method is
-    //where you inflate the layout for fragment's view and return the
-    //inflated view to the hosting activity.
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState)
     {
-        //The second parameter is your view's parent, which is usually needed to configure
-        //the widget properly.  The third parameter tell the layout inflater whether to add
-        //the inflated view to view's parent.  You pass in false because you will add the view
-        //in the activity's code.
         View v = inflater.inflate(R.layout.fragment_crime, parent, false);
 
-        //Wire up the EditText to respond to user input
         mTitleField = (EditText) v.findViewById(R.id.crime_title);
+        mTitleField.setText(mCrime.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence c, int start, int count, int after)
-            {
-                //This space intentionally left blank
-            }
+            public void beforeTextChanged(CharSequence c, int start, int count, int after){}
 
             @Override
             public void onTextChanged(CharSequence c, int start, int before, int count)
@@ -62,17 +59,25 @@ public class CrimeFragment extends Fragment
             }
 
             @Override
-            public void afterTextChanged(Editable editable)
-            {
-                //this one too
-            }
+            public void afterTextChanged(Editable editable){}
         });
 
         mDateButton = (Button) v.findViewById(R.id.crime_date);
-        mDateButton.setText(mCrime.getDate()); //only change here was to remove .toString()
+        mDateButton.setText(mCrime.getDate());
         mDateButton.setEnabled(false);
+        mDateButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+
+                DatePickerFragment dialog = new DatePickerFragment();
+                // string parameter uniquely identifies the DialogFragment in the FragmentManager's list
+                dialog.show(fm, DIALOG_DATE);
+            }
+        });
 
         mSolvedCheckBox = (CheckBox) v.findViewById(R.id.crime_solved);
+        mSolvedCheckBox.setChecked(mCrime.isSolved());
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
@@ -84,5 +89,16 @@ public class CrimeFragment extends Fragment
         });
 
         return v;
+    }
+
+    public static CrimeFragment newInstance(UUID crimeId)
+    {
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_CRIME_ID, crimeId);
+
+        CrimeFragment fragment = new CrimeFragment();
+        fragment.setArguments(args);
+
+        return fragment;
     }
 }

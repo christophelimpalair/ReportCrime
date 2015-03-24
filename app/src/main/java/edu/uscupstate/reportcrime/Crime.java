@@ -5,15 +5,18 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
- * Created by Michael on 2/5/2015.
+ * Created by Christophe.
+ *
+ * Model Class to control Crime parameters
  */
 public class Crime
 {
-    private UUID mId;
+    private UUID mId; // Universally Unique Identifier
     private String mTitle;
     private Date mDate;
     private boolean mSolved;
 
+    // Set ID and Date in Crime constructor
     public Crime()
     {
         mId = UUID.randomUUID();
@@ -37,9 +40,6 @@ public class Crime
 
     public String getDate()
     {
-        //Changed return type to string, used SimpleDateFormat because it
-        //allows you to format every aspect of the date string easily
-        //SimpleDateFormat when .format() is called returns the formatted string
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMM dd, yyyy");
         return sdf.format(mDate);
     }
@@ -53,4 +53,12 @@ public class Crime
         mSolved = solved;
     }
 
+    // Override toString to display title of Crime instead of memory address
+    @Override
+    public String toString()
+    {
+        return getTitle();
+    }
 }
+
+

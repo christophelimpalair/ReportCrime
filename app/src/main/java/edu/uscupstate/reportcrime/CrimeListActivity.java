@@ -3,7 +3,7 @@ package edu.uscupstate.reportcrime;
 
 import android.support.v4.app.Fragment;
 /**
- * Created by Michael on 2/24/2015.
+ * Created by Christophe.
  */
 
 public class CrimeListActivity extends SingleFragmentActivity
@@ -11,6 +11,7 @@ public class CrimeListActivity extends SingleFragmentActivity
     @Override
     protected Fragment createFragment()
     {
+//        return new CrimeFragment();
         return new CrimeListFragment();
     }
 

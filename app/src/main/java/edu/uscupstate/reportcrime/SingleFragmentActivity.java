@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
 
 /**
- * Created by Michael on 2/19/2015.
+ * Created by Christophe.
  */
 public abstract class SingleFragmentActivity extends FragmentActivity
 {
@@ -19,8 +19,9 @@ public abstract class SingleFragmentActivity extends FragmentActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
-        //Create a string to display the curent API Level and display it in a Toast
+        // Current API Level
         String mBuildMessage = "API Level: " + Build.VERSION.SDK;
+        // Display it in a Toast
         Toast.makeText(getApplicationContext(), mBuildMessage, Toast.LENGTH_SHORT).show();
         FragmentManager manager = getSupportFragmentManager();
         Fragment fragment = manager.findFragmentById(R.id.fragmentContainer);

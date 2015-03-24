@@ -6,15 +6,17 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /**
- * Created by Michael on 2/19/2015.
+ * Created by Christophe.
+ *
+ * Model class for creating, storing, and retrieving Crime objects
  */
 public class CrimeLab
 {
     private ArrayList<Crime> mCrimes;
-    private static CrimeLab sCrimeLab; //s prefix indicates it is a static variable
+    private static CrimeLab sCrimeLab; // s to denote static
     private Context mAppContext;
 
-    //having a Context parameter allows the singleton to start activities, access project resources
+    // Context parameter allows the singleton to start activities, access project resources
     private CrimeLab(Context appContext)
     {
         mAppContext = appContext;
