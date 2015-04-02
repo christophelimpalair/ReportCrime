@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v4.app.ListFragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -25,6 +27,8 @@ public class CrimeListFragment extends ListFragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
         getActivity().setTitle(R.string.crimes_title);
 
         // Access crimes
@@ -37,6 +41,14 @@ public class CrimeListFragment extends ListFragment
         CrimeAdapter adapter = new CrimeAdapter(mCrimes);
 
         setListAdapter(adapter);
+    }
+
+    @Override
+    // inflate an option menu
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+    {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_crime_list, menu);
     }
 
     // Have the adapter return the Crime for the item that was clicked
