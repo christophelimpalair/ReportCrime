@@ -18,6 +18,9 @@
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CrimeListActivity" />
         </activity>
+        <activity android:name=".CrimeActivity"
+            android:label="CrimeActivity"
+            android:value=".CrimeActivity" />
     </application>
 
 </manifest>

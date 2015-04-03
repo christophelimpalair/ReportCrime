@@ -38,10 +38,11 @@ public class Crime
         return mId;
     }
 
-    public String getDate()
+    public Date getDate()
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMM dd, yyyy");
-        return sdf.format(mDate);
+//        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMM dd, yyyy");
+//        return sdf.format(mDate);
+        return mDate;
     }
     public void setDate(Date date) {
         mDate = date;

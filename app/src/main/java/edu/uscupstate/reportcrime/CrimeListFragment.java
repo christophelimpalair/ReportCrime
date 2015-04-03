@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -97,5 +98,22 @@ public class CrimeListFragment extends ListFragment
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.menu_item_new_crime:
+                Crime crime = new Crime();
+                CrimeLab.get(getActivity()).addCrime(crime);
+                Intent i = new Intent(getActivity(), CrimeActivity.class);
+                i.putExtra(CrimeFragment.EXTRA_CRIME_ID, crime.getID());
+                startActivityForResult(i, 0);
+                // indicate no further processing is necessary
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 }
