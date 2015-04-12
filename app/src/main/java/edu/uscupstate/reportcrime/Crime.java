@@ -1,5 +1,8 @@
 package edu.uscupstate.reportcrime;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -15,6 +18,10 @@ public class Crime
     private String mTitle;
     private Date mDate;
     private boolean mSolved;
+    private static final String JSON_ID = "id";
+    private static final String JSON_TITLE = "title";
+    private static final String JSON_DATE = "date";
+    private static final String JSON_SOLVED = "solved";
 
     // Set ID and Date in Crime constructor
     public Crime()
@@ -59,6 +66,19 @@ public class Crime
     public String toString()
     {
         return getTitle();
+    }
+
+    public JSONObject toJSON() throws JSONException
+    {
+        // The code uses methods from the JSONObject class to handle
+        // the business of converting data in a Crime into something
+        /// that can be written to a file as JSON
+        JSONObject json = new JSONObject();
+        json.put(JSON_ID, mId.toString());
+        json.put(JSON_TITLE, mTitle);
+        json.put(JSON_DATE, mDate.getTime());
+        json.put(JSON_SOLVED, mSolved);
+        return json;
     }
 }
 

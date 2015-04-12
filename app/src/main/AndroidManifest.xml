@@ -20,7 +20,10 @@
         </activity>
         <activity android:name=".CrimeActivity"
             android:label="CrimeActivity"
-            android:value=".CrimeActivity" />
+            android:value=".CrimeActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CrimeListActivity" /></activity>
+
     </application>
 
 </manifest>

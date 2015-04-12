@@ -55,10 +55,10 @@ public class CrimeFragment extends Fragment
     {
         View v = inflater.inflate(R.layout.fragment_crime, parent, false);
         // Turn on Up button
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-        {
-            getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+//        {
+//            getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+//        }
 
         mTitleField = (EditText) v.findViewById(R.id.crime_title);
         mTitleField.setText(mCrime.getTitle());
@@ -133,5 +133,10 @@ public class CrimeFragment extends Fragment
     }
 
 
+    public void onPause()
+    {
+        super.onPause();
+        CrimeLab.get(getActivity()).saveCrimes();
+    }
 
 }
