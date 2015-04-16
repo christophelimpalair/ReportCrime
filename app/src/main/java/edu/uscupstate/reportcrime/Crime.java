@@ -23,11 +23,19 @@ public class Crime
     private static final String JSON_DATE = "date";
     private static final String JSON_SOLVED = "solved";
 
-    // Set ID and Date in Crime constructor
     public Crime()
     {
         mId = UUID.randomUUID();
         mDate = new Date();
+    }
+
+    // Set ID and Date in Crime constructor
+    public Crime(JSONObject json) throws JSONException
+    {
+        mId = UUID.fromString(json.getString(JSON_ID));
+        mTitle = json.getString(JSON_TITLE);
+        mSolved = json.getBoolean(JSON_SOLVED);
+        mDate = new Date(json.getLong(JSON_DATE));
     }
 
     public String getTitle()

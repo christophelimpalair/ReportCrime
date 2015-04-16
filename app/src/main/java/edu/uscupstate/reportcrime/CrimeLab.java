@@ -27,6 +27,12 @@ public class CrimeLab
         //populate the array list with 100 boring Crime objects
         mCrimes = new ArrayList<Crime>();
         mSerializer = new CriminalIntentJSONSerializer(mAppContext, FILENAME);
+        try {
+            mCrimes = mSerializer.loadCrimes();
+        } catch (Exception e) {
+            mCrimes = new ArrayList<Crime>();
+            Log.e(TAG, "Error loading crimes");
+        }
 //        for(int i=0; i<100; ++i)
 //        {
 //            Crime c = new Crime();
